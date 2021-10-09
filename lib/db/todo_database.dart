@@ -35,12 +35,12 @@ class ToDosDatabase {
     const booleanType = 'BOOLEAN NOT NULL';
     // Creating table
     await db.execute('''
-    CREATE TABLE $tableTodos(
+    CREATE TABLE $tableTodos (
       ${ToDoFields.id} $idType,
       ${ToDoFields.description} $textType,
       ${ToDoFields.isCompleted} $booleanType,
       ${ToDoFields.deadlineTime} $textType,
-      ${ToDoFields.createdTime} $textType,
+      ${ToDoFields.createdTime} $textType
     )
     ''');
   }
