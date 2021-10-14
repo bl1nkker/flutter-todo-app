@@ -15,6 +15,20 @@ class ToDoModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void update(ToDo updatedTodo) async {
+    await ToDosDatabase.instance.update(updatedTodo);
+    _todos = [
+      ..._todos.map((todo) => todo.id == updatedTodo.id ? updatedTodo : todo)
+    ];
+    print('Updated');
+    notifyListeners();
+  }
+
+  void delete(int todoId) async {
+    await ToDosDatabase.instance.delete(todoId);
+    notifyListeners();
+  }
+
   /// Adds [todo] to list. This and [removeAll] are the only ways to modify the
   /// cart from the outside.
   void add(ToDo todo) async {

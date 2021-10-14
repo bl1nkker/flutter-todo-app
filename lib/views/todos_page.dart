@@ -20,16 +20,6 @@ class _ToDosPageState extends State<ToDosPage> {
     super.initState();
   }
 
-  // Future refreshTodos() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   this.todos = await ToDosDatabase.instance.readAll();
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     Provider.of<ToDoModel>(context, listen: false).retrieveToDos();
@@ -44,13 +34,37 @@ class _ToDosPageState extends State<ToDosPage> {
                     itemCount: todosModel.todos.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        child: ListTile(
-                          onTap: () {
-                            // Navigator to todo details here
-                          },
-                          title: Text(todosModel.todos[index].description),
+                          child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(todosModel.todos[index].description),
+                            IconButton(
+                              onPressed: () {
+                                late ToDo updatedToDo = ToDo(
+                                    id: todosModel.todos[index].id,
+                                    isCompleted:
+                                        !todosModel.todos[index].isCompleted,
+                                    description:
+                                        todosModel.todos[index].description,
+                                    createdTime:
+                                        todosModel.todos[index].createdTime,
+                                    deadlineTime:
+                                        todosModel.todos[index].deadlineTime);
+                                todosModel.update(updatedToDo);
+                              },
+                              icon: Icon(
+                                Icons.check_circle,
+                                color: todosModel.todos[index].isCompleted
+                                    ? Colors.green
+                                    : Colors.grey,
+                              ),
+                            )
+                          ],
                         ),
-                      );
+                      ));
                     },
                   );
         ;
