@@ -26,6 +26,8 @@ class ToDoModel extends ChangeNotifier {
 
   void delete(int todoId) async {
     await ToDosDatabase.instance.delete(todoId);
+    _todos.removeWhere((todo) => todo.id == todoId);
+    print('Deleted');
     notifyListeners();
   }
 

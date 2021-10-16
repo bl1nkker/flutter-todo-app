@@ -41,26 +41,40 @@ class _ToDosPageState extends State<ToDosPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(todosModel.todos[index].description),
-                            IconButton(
-                              onPressed: () {
-                                late ToDo updatedToDo = ToDo(
-                                    id: todosModel.todos[index].id,
-                                    isCompleted:
-                                        !todosModel.todos[index].isCompleted,
-                                    description:
-                                        todosModel.todos[index].description,
-                                    createdTime:
-                                        todosModel.todos[index].createdTime,
-                                    deadlineTime:
-                                        todosModel.todos[index].deadlineTime);
-                                todosModel.update(updatedToDo);
-                              },
-                              icon: Icon(
-                                Icons.check_circle,
-                                color: todosModel.todos[index].isCompleted
-                                    ? Colors.green
-                                    : Colors.grey,
-                              ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    late ToDo updatedToDo = ToDo(
+                                        id: todosModel.todos[index].id,
+                                        isCompleted: !todosModel
+                                            .todos[index].isCompleted,
+                                        description:
+                                            todosModel.todos[index].description,
+                                        createdTime:
+                                            todosModel.todos[index].createdTime,
+                                        deadlineTime: todosModel
+                                            .todos[index].deadlineTime);
+                                    todosModel.update(updatedToDo);
+                                  },
+                                  icon: Icon(
+                                    Icons.check_circle,
+                                    color: todosModel.todos[index].isCompleted
+                                        ? Colors.green
+                                        : Colors.grey,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    todosModel.delete(
+                                        todosModel.todos[index].id as int);
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.redAccent,
+                                  ),
+                                )
+                              ],
                             )
                           ],
                         ),
