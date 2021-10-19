@@ -27,12 +27,12 @@ class ToDoCard extends StatelessWidget {
                   onPressed: () {
                     late ToDo updatedToDo = ToDo(
                         id: todo.id,
-                        isCompleted: todo.isCompleted,
+                        isCompleted: !todo.isCompleted,
                         description: todo.description,
                         createdTime: todo.createdTime,
                         deadlineTime: todo.deadlineTime);
                     Provider.of<ToDoModel>(context, listen: false)
-                        .add(updatedToDo);
+                        .update(updatedToDo);
                   },
                   icon: Icon(
                     Icons.check_circle,
@@ -57,11 +57,11 @@ class ToDoCard extends StatelessWidget {
     );
   }
 
-  void _todoDetailModalBottomSheet(context, ToDo todo) {
+  void _todoDetailModalBottomSheet(BuildContext context, ToDo todo) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
-          return ToDoDetails(todo: todo);
+          return ToDoDetails(todo: todo, parentContext: context);
         });
   }
 }

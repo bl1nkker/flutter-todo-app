@@ -84,7 +84,6 @@ class ToDosDatabase {
   // Update
   Future<int> update(ToDo todo) async {
     final db = await instance.database;
-
     // Update method takes table, new todo and options
     return db.update(tableTodos, todo.toJson(), where: '${ToDoFields.id} = ?',
         // Against SQL injections

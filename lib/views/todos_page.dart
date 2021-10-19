@@ -17,20 +17,16 @@ class _ToDosPageState extends State<ToDosPage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<ToDoModel>(context, listen: false).retrieveToDos();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ToDoModel>(context, listen: false).retrieveToDos();
-    return Consumer<ToDoModel>(
-      builder: (context, todosModel, child) {
-        return isLoading
-            ? const CircularProgressIndicator()
-            : todosModel.todos.isEmpty
-                ? const Text('Nothing is there...',
-                    style: TextStyle(color: Colors.white))
-                : ToDoList(todos: todosModel.todos);
-      },
-    );
+    return isLoading
+        ? const CircularProgressIndicator()
+        : Provider.of<ToDoModel>(context, listen: true).todos.isEmpty
+            ? const Text('Nothing is there...',
+                style: TextStyle(color: Colors.white))
+            : ToDoList();
   }
 }
