@@ -8,45 +8,6 @@ class ToDoDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-        tag: todo,
-        child: SafeArea(
-          child: Scaffold(
-            appBar: AppBar(),
-            body: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                IconButton(
-                  onPressed: () {
-                    // Provider
-                  },
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.redAccent,
-                  ),
-                ),
-                Text(todo.description),
-                IconButton(
-                  onPressed: () {
-                    // Provider
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.redAccent,
-                  ),
-                )
-              ]),
-              SizedBox(height: 10.0),
-              SizedBox(height: 10.0),
-              Row(
-                children: [
-                  Text(
-                      'Created at: ${todo.createdTime.hour.toString()} : ${todo.createdTime.minute.toString()}'),
-                  Text(
-                      'Deadline at: ${todo.deadlineTime.hour.toString()} : ${todo.deadlineTime.minute.toString()}'),
-                ],
-              )
-            ]),
-          ),
-        ));
+    return Container(child: Text('Hello World'));
   }
 }

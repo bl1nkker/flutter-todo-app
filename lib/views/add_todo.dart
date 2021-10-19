@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/db/models/todo.dart';
-import 'package:flutter_todo_app/provider/todo_list.dart';
+import 'package:flutter_todo_app/provider/todo_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

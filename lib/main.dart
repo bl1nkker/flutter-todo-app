@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter_todo_app/db/models/todo.dart';
-import 'package:flutter_todo_app/provider/todo_list.dart';
+import 'package:flutter_todo_app/provider/todo_provider.dart';
 import 'package:flutter_todo_app/views/add_todo.dart';
 import 'package:flutter_todo_app/views/todos_page.dart';
 import 'package:provider/provider.dart';
