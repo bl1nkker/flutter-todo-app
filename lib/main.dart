@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 //   }, ));
 // }
 void main() {
-  runApp(MaterialApp(home: HomePage()));
+  runApp(ChangeNotifierProvider(
+      create: (context) => ToDoModel(), child: MaterialApp(home: HomePage())));
 }
 
 class HomePage extends StatefulWidget {
@@ -32,35 +33,32 @@ class _HomePageState extends State<HomePage> {
     Color secondaryColor = Colors.deepPurpleAccent.shade700;
     Color iconsColor = Colors.amber;
     return SafeArea(
-      child: ChangeNotifierProvider(
-        create: (context) => ToDoModel(),
-        child: Scaffold(
-          body: Container(
-            color: primaryColor,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: IndexedStack(
-              children: screens,
-              index: currentIndex,
-            ),
+      child: Scaffold(
+        body: Container(
+          color: primaryColor,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: IndexedStack(
+            children: screens,
+            index: currentIndex,
           ),
-          bottomNavigationBar: CurvedNavigationBar(
-            height: 60,
-            color: secondaryColor,
-            backgroundColor: primaryColor,
-            buttonBackgroundColor: secondaryColor,
-            items: <Widget>[
-              Icon(Icons.verified, size: 25, color: iconsColor),
-              Icon(Icons.add, size: 45, color: Colors.red.shade300),
-              Icon(Icons.list, size: 25, color: iconsColor),
-            ],
-            onTap: (index) {
-              // Navigator here
-              setState(() {
-                currentIndex = index;
-              });
-            },
-          ),
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          height: 60,
+          color: secondaryColor,
+          backgroundColor: primaryColor,
+          buttonBackgroundColor: secondaryColor,
+          items: <Widget>[
+            Icon(Icons.verified, size: 25, color: iconsColor),
+            Icon(Icons.add, size: 45, color: Colors.red.shade300),
+            Icon(Icons.list, size: 25, color: iconsColor),
+          ],
+          onTap: (index) {
+            // Navigator here
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       ),
     );

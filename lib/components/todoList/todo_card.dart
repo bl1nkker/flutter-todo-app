@@ -61,7 +61,7 @@ class ToDoCard extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
-          return ToDoDetails(todo: todo, parentContext: context);
+          return ToDoDetails(todoId: todo.id!, parentContext: context);
         });
   }
 }

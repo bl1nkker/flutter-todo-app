@@ -34,7 +34,7 @@ class _AddToDoState extends State<AddToDo> {
                   filled: true,
                 ),
                 style: const TextStyle(color: Colors.white),
-                keyboardType: TextInputType.datetime,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done),
             const SizedBox(height: 10),
             Row(
