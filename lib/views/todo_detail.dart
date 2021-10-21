@@ -20,7 +20,11 @@ class ToDoDetails extends StatefulWidget {
 class _ToDoDetailsState extends State<ToDoDetails> {
   bool editMode = false;
   final descriptionController = TextEditingController();
+
   final deadlineTimeController = TextEditingController();
+  // final String timeFormatToShow = 'EEEE, d MMM yyyy';
+  final String timeFormatToShow = 'yyyy-MM-dd';
+  final String timeFormatToSend = 'yyyy-MM-dd';
 
   final modalNormalSizeMultiplyer = .5;
   final modalOnKeyBoardOpenSizeMultiplyer = .9;
@@ -33,7 +37,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
       if (descriptionController.text.isEmpty &&
           deadlineTimeController.text.isEmpty) {
         descriptionController.text = currentTodo.description;
-        deadlineTimeController.text = DateFormat('EEEE, d MMM')
+        deadlineTimeController.text = DateFormat(timeFormatToShow)
             .format(currentTodo.deadlineTime)
             .toString();
       }
@@ -72,7 +76,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
               if (pickedDate != null) {
                 //pickedDate output format => 2021-03-10 00:00:00.000
                 String formattedDate =
-                    DateFormat('EEEE, d MMM').format(pickedDate);
+                    DateFormat(timeFormatToShow).format(pickedDate);
 
                 setState(() {
                   deadlineTimeController.text = formattedDate;
@@ -84,7 +88,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
             readOnly: true)
         : Text(
             'Deadline at: ' +
-                DateFormat('EEEE, d MMM')
+                DateFormat(timeFormatToShow)
                     .format(currentTodo.deadlineTime)
                     .toString(),
             style: TextStyle(fontSize: 16.0),
@@ -129,8 +133,9 @@ class _ToDoDetailsState extends State<ToDoDetails> {
                         isCompleted: currentTodo.isCompleted,
                         description: descriptionController.text,
                         createdTime: currentTodo.createdTime,
-                        deadlineTime:
-                            DateTime.parse(deadlineTimeController.text));
+                        deadlineTime: DateTime.parse(DateFormat('yyyy-MM-dd')
+                            .format(
+                                DateTime.parse(deadlineTimeController.text))));
                     Provider.of<ToDoModel>(context, listen: false)
                         .update(updatedTodo);
                   }
@@ -147,9 +152,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
         descriptionField,
         Text(
           'Created at: ' +
-              DateFormat('EEEE, d MMM')
-                  .format(currentTodo.createdTime)
-                  .toString(),
+              DateFormat(timeFormatToShow).format(currentTodo.createdTime),
           style: TextStyle(fontSize: 12.0),
         ),
         // Add color behaviour
