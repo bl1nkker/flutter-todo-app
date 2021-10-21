@@ -19,24 +19,26 @@ class ToDoDetails extends StatefulWidget {
 
 class _ToDoDetailsState extends State<ToDoDetails> {
   bool editMode = false;
+  final descriptionController = TextEditingController();
+  final deadlineTimeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Consumer<ToDoModel>(builder: (context, todosModel, child) {
       // Kostyl yeaaaaaaaah
       final currentTodo =
           todosModel.todos.firstWhere((element) => element.id == widget.todoId);
+      if (descriptionController.text.isEmpty &&
+          deadlineTimeController.text.isEmpty) {
+        descriptionController.text = currentTodo.description;
+        deadlineTimeController.text = currentTodo.deadlineTime.toString();
+      }
       return Container(
-          height: MediaQuery.of(context).size.height * .7,
+          height: MediaQuery.of(context).size.height * 2,
           child: Center(child: buildForm(currentTodo)));
     });
   }
 
   Widget buildForm(ToDo currentTodo) {
-    final descriptionController =
-        TextEditingController(text: currentTodo.description);
-    final deadlineTimeController =
-        TextEditingController(text: currentTodo.deadlineTime.toString());
-
     final Icon leftUpIcon = editMode
         ? Icon(Icons.verified_outlined, color: Colors.green, size: 25.0)
         : Icon(Icons.edit, color: Colors.amber, size: 25.0);
@@ -65,7 +67,6 @@ class _ToDoDetailsState extends State<ToDoDetails> {
                 setState(() {
                   deadlineTimeController.text = formattedDate;
                 });
-                print(formattedDate);
               } else {
                 print("Date is not selected");
               }
@@ -93,12 +94,10 @@ class _ToDoDetailsState extends State<ToDoDetails> {
                       (currentTodo.description != descriptionController.text ||
                           currentTodo.deadlineTime.toString() !=
                               deadlineTimeController.text)) {
-                    print(deadlineTimeController.text +
-                        '   ' +
-                        descriptionController.text);
                     final ToDo updatedTodo = ToDo(
+                        id: currentTodo.id,
                         isCompleted: currentTodo.isCompleted,
-                        description: 'Updated',
+                        description: descriptionController.text,
                         createdTime: currentTodo.createdTime,
                         deadlineTime:
                             DateTime.parse(deadlineTimeController.text));
