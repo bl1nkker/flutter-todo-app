@@ -21,6 +21,9 @@ class _ToDoDetailsState extends State<ToDoDetails> {
   bool editMode = false;
   final descriptionController = TextEditingController();
   final deadlineTimeController = TextEditingController();
+
+  final modalNormalSizeMultiplyer = .5;
+  final modalOnKeyBoardOpenSizeMultiplyer = .9;
   @override
   Widget build(BuildContext context) {
     return Consumer<ToDoModel>(builder: (context, todosModel, child) {
@@ -30,10 +33,15 @@ class _ToDoDetailsState extends State<ToDoDetails> {
       if (descriptionController.text.isEmpty &&
           deadlineTimeController.text.isEmpty) {
         descriptionController.text = currentTodo.description;
-        deadlineTimeController.text = currentTodo.deadlineTime.toString();
+        deadlineTimeController.text = DateFormat('EEEE, d MMM')
+            .format(currentTodo.deadlineTime)
+            .toString();
       }
       return Container(
-          height: MediaQuery.of(context).size.height * 2,
+          height: MediaQuery.of(context).size.height *
+              (editMode
+                  ? modalOnKeyBoardOpenSizeMultiplyer
+                  : modalNormalSizeMultiplyer),
           child: Center(child: buildForm(currentTodo)));
     });
   }
@@ -42,6 +50,8 @@ class _ToDoDetailsState extends State<ToDoDetails> {
     final Icon leftUpIcon = editMode
         ? Icon(Icons.verified_outlined, color: Colors.green, size: 25.0)
         : Icon(Icons.edit, color: Colors.amber, size: 25.0);
+
+    // Deadline field
     final Widget deadlineField = editMode
         ? TextField(
             controller: deadlineTimeController,
@@ -62,7 +72,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
               if (pickedDate != null) {
                 //pickedDate output format => 2021-03-10 00:00:00.000
                 String formattedDate =
-                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                    DateFormat('EEEE, d MMM').format(pickedDate);
 
                 setState(() {
                   deadlineTimeController.text = formattedDate;
@@ -74,10 +84,30 @@ class _ToDoDetailsState extends State<ToDoDetails> {
             readOnly: true)
         : Text(
             'Deadline at: ' +
-                DateFormat('EEEE, d HH:mm')
+                DateFormat('EEEE, d MMM')
                     .format(currentTodo.deadlineTime)
                     .toString(),
             style: TextStyle(fontSize: 16.0),
+          );
+
+    // Description field
+    final Widget descriptionField = editMode
+        ? TextField(
+            controller: descriptionController,
+            style: const TextStyle(
+              fontSize: 24.0,
+            ),
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                border: InputBorder.none,
+                filled: true,
+                fillColor: Colors.blue.shade50),
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.done)
+        : Text(
+            currentTodo.description,
+            style: const TextStyle(fontSize: 24.0),
           );
 
     return Column(
@@ -114,24 +144,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
           ],
         ),
         const SizedBox(height: 35.0),
-        editMode
-            ? TextField(
-                controller: descriptionController,
-                style: const TextStyle(
-                  fontSize: 24.0,
-                ),
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.zero,
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: Colors.blue.shade50),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done)
-            : Text(
-                currentTodo.description,
-                style: const TextStyle(fontSize: 24.0),
-              ),
+        descriptionField,
         Text(
           'Created at: ' +
               DateFormat('EEEE, d MMM')

@@ -59,6 +59,7 @@ class ToDoCard extends StatelessWidget {
 
   void _todoDetailModalBottomSheet(BuildContext context, ToDo todo) {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {
           return ToDoDetails(todoId: todo.id!, parentContext: context);
