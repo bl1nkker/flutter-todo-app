@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_todo_app/app_colors.dart';
 import 'package:flutter_todo_app/provider/todo_provider.dart';
 import 'package:flutter_todo_app/views/add_todo.dart';
 import 'package:flutter_todo_app/views/todos_page.dart';
@@ -29,29 +32,52 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Colors.black;
-    Color secondaryColor = Colors.deepPurpleAccent.shade700;
-    Color iconsColor = Colors.amber;
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: primaryColor,
+          color: darkThemeBg,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: IndexedStack(
-            children: screens,
-            index: currentIndex,
-          ),
+          child: Stack(children: [
+            Positioned(
+                top: MediaQuery.of(context).size.height * -.1,
+                left: -25,
+                child: Container(
+                    height: 300,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, gradient: firstBallGradient))),
+            Positioned(
+                top: MediaQuery.of(context).size.height * .6,
+                right: 0,
+                child: Container(
+                    height: 300,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, gradient: secondBallGradient))),
+            IndexedStack(
+              children: screens,
+              index: currentIndex,
+            ),
+          ]),
         ),
         bottomNavigationBar: CurvedNavigationBar(
           height: 60,
-          color: secondaryColor,
-          backgroundColor: primaryColor,
-          buttonBackgroundColor: secondaryColor,
+          color: transparentColor,
+          backgroundColor: darkThemeBg,
           items: <Widget>[
-            Icon(Icons.verified, size: 25, color: iconsColor),
-            Icon(Icons.add, size: 45, color: Colors.red.shade300),
-            Icon(Icons.list, size: 25, color: iconsColor),
+            Container(
+              child: Icon(Icons.list_alt_outlined,
+                  size: 30, color: firstButtonIconColor),
+            ),
+            Container(
+                decoration: BoxDecoration(
+                    gradient: middleButtonGradient,
+                    borderRadius: BorderRadius.circular(50)),
+                child: Icon(Icons.add, size: 45, color: middleButtonIconColor)),
+            Container(
+                child: Icon(Icons.info_outline,
+                    size: 30, color: thirdButtonIconColor)),
           ],
           onTap: (index) {
             // Navigator here

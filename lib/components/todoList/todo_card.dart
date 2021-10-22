@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/app_colors.dart';
 import 'package:flutter_todo_app/db/models/todo.dart';
 import 'package:flutter_todo_app/provider/todo_provider.dart';
 import 'package:flutter_todo_app/views/todo_detail.dart';
@@ -14,46 +15,60 @@ class ToDoCard extends StatelessWidget {
       onTap: () {
         _todoDetailModalBottomSheet(context, todo);
       },
-      child: Card(
+      child: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 20.0, 10.0),
+          decoration: BoxDecoration(
+              gradient: cardGradientBg,
+              borderRadius: BorderRadius.circular(10.0),
+              border:
+                  Border.all(color: Colors.white.withOpacity(.3), width: 1)),
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(todo.description),
-            Row(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () {
-                    late ToDo updatedToDo = ToDo(
-                        id: todo.id,
-                        isCompleted: !todo.isCompleted,
-                        description: todo.description,
-                        createdTime: todo.createdTime,
-                        deadlineTime: todo.deadlineTime);
-                    Provider.of<ToDoModel>(context, listen: false)
-                        .update(updatedToDo);
-                  },
-                  icon: Icon(
-                    Icons.check_circle,
-                    color: todo.isCompleted ? Colors.green : Colors.grey,
-                  ),
+                Text(
+                  todo.description,
+                  style: TextStyle(
+                      color: cardDescriptionTextColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300),
                 ),
-                IconButton(
-                  onPressed: () {
-                    Provider.of<ToDoModel>(context, listen: false)
-                        .delete(todo.id as int);
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.redAccent,
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        late ToDo updatedToDo = ToDo(
+                            id: todo.id,
+                            isCompleted: !todo.isCompleted,
+                            description: todo.description,
+                            createdTime: todo.createdTime,
+                            deadlineTime: todo.deadlineTime);
+                        Provider.of<ToDoModel>(context, listen: false)
+                            .update(updatedToDo);
+                      },
+                      icon: Icon(
+                        Icons.check_circle,
+                        color:
+                            todo.isCompleted ? cardCompleteIcon : Colors.grey,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Provider.of<ToDoModel>(context, listen: false)
+                            .delete(todo.id as int);
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: cardDeleteIcon,
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ),
-      )),
+            ),
+          )),
     );
   }
 

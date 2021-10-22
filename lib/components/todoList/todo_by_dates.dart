@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/app_colors.dart';
 import 'package:flutter_todo_app/components/todoList/todo_card.dart';
 import 'package:flutter_todo_app/db/models/todo.dart';
 import 'package:intl/intl.dart';
@@ -50,12 +51,19 @@ class _ToDoByDatesState extends State<ToDoByDates> {
       itemCount: sortedToDos.length,
       itemBuilder: (context, index) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              DateFormat('EEEE, d MMM')
-                  .format(sortedToDos[index].date)
-                  .toString(),
-              style: TextStyle(color: Colors.white),
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 10, 0, 10),
+              child: Text(
+                DateFormat('EEEE, d MMM')
+                    .format(sortedToDos[index].date)
+                    .toString(),
+                style: TextStyle(
+                    color: cardDeadlineTextColor,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w200),
+              ),
             ),
             Padding(
                 padding: const EdgeInsets.only(left: 8.0),
