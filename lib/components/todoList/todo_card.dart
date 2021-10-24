@@ -18,7 +18,7 @@ class ToDoCard extends StatelessWidget {
       child: Container(
           margin: EdgeInsets.fromLTRB(0, 0, 20.0, 10.0),
           decoration: BoxDecoration(
-              gradient: cardGradientBg,
+              color: todo.isCompleted ? cardDoneBg : cardNotDoneBg,
               borderRadius: BorderRadius.circular(10.0),
               border:
                   Border.all(color: Colors.white.withOpacity(.3), width: 1)),
@@ -74,6 +74,12 @@ class ToDoCard extends StatelessWidget {
 
   void _todoDetailModalBottomSheet(BuildContext context, ToDo todo) {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
+        ),
+        barrierColor: Colors.black.withOpacity(.6),
+        backgroundColor: transparentSecondColor,
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {

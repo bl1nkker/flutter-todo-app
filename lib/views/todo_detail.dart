@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/app_colors.dart';
 import 'package:flutter_todo_app/db/models/todo.dart';
 import 'package:flutter_todo_app/provider/todo_provider.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
   final String timeFormatToShow = 'yyyy-MM-dd';
   final String timeFormatToSend = 'yyyy-MM-dd';
 
-  final modalNormalSizeMultiplyer = .5;
+  final modalNormalSizeMultiplyer = .55;
   final modalOnKeyBoardOpenSizeMultiplyer = .9;
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,7 @@ class _ToDoDetailsState extends State<ToDoDetails> {
             .toString();
       }
       return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           height: MediaQuery.of(context).size.height *
               (editMode
                   ? modalOnKeyBoardOpenSizeMultiplyer
@@ -91,7 +93,10 @@ class _ToDoDetailsState extends State<ToDoDetails> {
                 DateFormat(timeFormatToShow)
                     .format(currentTodo.deadlineTime)
                     .toString(),
-            style: TextStyle(fontSize: 16.0),
+            style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w300),
           );
 
     // Description field
@@ -111,7 +116,10 @@ class _ToDoDetailsState extends State<ToDoDetails> {
             textInputAction: TextInputAction.done)
         : Text(
             currentTodo.description,
-            style: const TextStyle(fontSize: 24.0),
+            style: const TextStyle(
+                fontSize: 24.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w300),
           );
 
     return Column(
@@ -153,7 +161,8 @@ class _ToDoDetailsState extends State<ToDoDetails> {
         Text(
           'Created at: ' +
               DateFormat(timeFormatToShow).format(currentTodo.createdTime),
-          style: TextStyle(fontSize: 12.0),
+          style: TextStyle(
+              fontSize: 12.0, color: Colors.white, fontWeight: FontWeight.w200),
         ),
         // Add color behaviour
         SizedBox(height: 50.0),
